@@ -1,3 +1,6 @@
+//for prompting user input
+const readline = require('readline');
+
 class TodoList {
     constructor(name) {
         this._listName = "Friday Todos"
@@ -46,9 +49,55 @@ class TodoList {
 
 
 
+
+
+// myTodoList.addTodo("Study Front-End")
+// myTodoList.addTodo("Study Front-End biyaaatch")
+
+// let currentTodos = myTodoList.todos
+
+
+
+
+// DRIVER CODE 
 let myTodoList = new TodoList("Friday Todos")
+let stayInProgram = true
+let command = ""
 
-myTodoList.addTodo("Study Front-End")
-myTodoList.addTodo("Study Front-End biyaaatch")
+//create an instance of the readline program
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-let currentTodos = myTodoList.todos
+while(stayInProgram === true){
+    // Ask question
+    console.log("add -> Add Todo")
+    console.log("show -> Show All Todos")
+    console.log("exit -> GTFO")
+
+    rl.question('What do you want to do', (userInput) => {
+        //basic way to prompt user
+        command = userInput
+        rl.close();
+    });
+
+    switch(command) {
+        case 'add':
+            let newTodoText = ""
+            rl.question("What's the new todo?", (userInput) => {
+                //basic way to prompt user
+                newTodoText = userInput
+                rl.close();
+            });
+            myTodoList.addTodo(newTodoText);
+            break;
+        case 'show':
+            console.log(myTodoList.todoList)
+        case 'exit':
+            stayInProgram = false;
+        default: 
+            console.log('not an option');
+            break;   
+    }
+}
